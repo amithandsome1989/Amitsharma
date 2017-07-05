@@ -1,0 +1,58 @@
+<html ng-app="productApp">
+<html lang="en">
+<head>
+  <title>Amit Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="angular.min.js"></script>
+  <script>
+      var productApp = angular.module('productApp', []);
+      productApp.controller('productCtrl', function ($scope, $http){
+        $http.get('products.json').success(function(data) {
+          $scope.products = data;
+		   $scope.size = '';
+    $scope.colors = function () {
+        var colors = ["XS","S","L","XL"];
+        return colors;
+    };
+    
+    $scope.doFilter = function () {
+        var filter = [];
+        if ($scope.size) filter.size = $scope.size;
+        return filter;
+    }
+        });
+		
+		
+		
+      });
+    </script>
+</head>
+<body ng-controller="productCtrl">
+<div style="width:90%;margin:auto;">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12" style="padding:5px;border:1px solid black;background:gray;font-size:18px;position:fixed;z-index:2;width:90%;"><div style="float:left;">Women's tops</div> <select ng-model="size" style="width:100px;float:right;font-size:14px;" ng-options="c for c in colors()">
+		<option value="">size</option>
+		
+	</select></div>
+	</div>
+  <div class="row" style="margin-top:40px;">
+   <div class="col-xs-12 col-sm-6 col-md-3" style="height:350px;border:1px solid black;" ng-repeat="product in products | filter:doFilter()">
+   <img src="Products/{{product.productImage}}" class="img-responsive" title="{{product.productName}}" style="margin:auto;"/>
+	<div style="position:absolute;bottom:0px;">
+      <div ng-if="product.isSale == true"><span style="padding:5px;background:red;">Sale</span></div>
+	  <div ng-if="product.isExclusive == true"><span style="padding:5px;background:green;">Exclusive</span></div>
+	  <p style="margin-top:10px;">Size: <span style="margin-left:10px;">{{product.size}}</span></p>
+	   <h4>Price: <span style="margin-left:10px;">{{product.price}}</span></h4>
+          </div>
+          </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

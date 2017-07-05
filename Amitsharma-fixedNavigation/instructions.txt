@@ -1,0 +1,9 @@
+## Code Test Instruction
+
+You have 2hrs to complete the following tasks based on the psd and picture of the DT-Code-Test.jpg:
+
+- Load all the contents provided in Products.json (images are provided in Products folder)
+- Ensure the page is responsive and that the page displays elegantly on mobile
+- Enable filtering of products based on their sizes (XS, S, M, L, XL)
+
+When completed, please commit your work to a Github or Bitbucket repository and submit the link.
